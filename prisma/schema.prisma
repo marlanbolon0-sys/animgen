@@ -1,0 +1,63 @@
+// AnimGen — schema Prisma untuk MODE DEMO lokal (SQLite).
+// Skema produksi PostgreSQL (Supabase) ada di: supabase/migrations/0001_init.sql
+// Keduanya dibuat identik secara struktur agar migrasi Supabase mulus.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  name         String?
+  passwordHash String? // hanya dipakai di mode demo (tanpa Supabase)
+  credits      Int      @default(3) // pengguna baru dapat 3 kredit gratis
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  videos Video[]
+  ledger CreditLedger[]
+}
+
+model Video {
+  id              String   @id @default(uuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  mode            String // "text" | "image"
+  prompt          String
+  imageUrl        String?
+  style           String // anime-2d | pixar-3d | kartun | pixel-art | realistis | whiteboard
+  ratio           String // "9:16" | "1:1" | "16:9"
+  durationSeconds Int // 5 | 10
+  status          String   @default("queued") // queued | processing | completed | failed
+  provider        String? // mock | runway | meshy
+  providerJobId   String?
+  videoUrl        String?
+  errorMessage    String?
+  creditsCharged  Int      @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  ledger CreditLedger[]
+
+  @@index([userId, createdAt])
+  @@index([status])
+}
+
+model CreditLedger {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  videoId   String?
+  video     Video?   @relation(fields: [videoId], references: [id], onDelete: SetNull)
+  delta     Int // negatif = pemakaian, positif = bonus/refund/pembelian
+  reason    String // signup_bonus | generation | refund | purchase
+  createdAt DateTime @default(now())
+
+  @@index([userId, createdAt])
+}
