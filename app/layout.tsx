@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { InstallPrompt, PwaRegister } from "@/components/pwa/pwa";
+import { NEW_USER_CREDITS } from "@/lib/pricing";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,7 +18,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "AnimGen — Buat Video Animasi AI dari Teks & Gambar",
   description:
-    "Ubah deskripsi teks atau satu gambar menjadi video animasi pendek untuk TikTok, Reels, iklan produk, dan konten edukasi. Mobile-first, 3 kredit gratis untuk pengguna baru.",
+    `Ubah deskripsi teks atau satu gambar menjadi video animasi pendek untuk TikTok, Reels, iklan produk, dan konten edukasi. Mobile-first, ${NEW_USER_CREDITS} kredit gratis untuk pengguna baru.`,
   keywords: ["animasi AI", "text to video", "image to video", "AnimGen", "video pendek", "AI Indonesia"],
   manifest: "/manifest.webmanifest",
   appleWebApp: {
