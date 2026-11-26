@@ -1,6 +1,6 @@
 // Aturan kredit & parameter generator AnimGen.
 
-export const NEW_USER_CREDITS = 3;
+export const NEW_USER_CREDITS = 5;
 
 /** Biaya kredit per durasi video (detik). */
 export const CREDIT_COST: Record<number, number> = {
@@ -85,9 +85,9 @@ export interface CreditPackage {
 
 /** Paket kredit — pembayaran masih placeholder untuk MVP. */
 export const CREDIT_PACKAGES: CreditPackage[] = [
-  { id: "starter", label: "Starter", credits: 10, price: 29000, note: "±10 video 5 detik" },
-  { id: "creator", label: "Creator", credits: 30, price: 75000, note: "±30 video 5 detik", popular: true },
-  { id: "pro", label: "Pro", credits: 100, price: 199000, note: "±100 video 5 detik" },
+  { id: "starter", label: "Starter", credits: 10, price: 9000, note: "±10 video 5 detik" },
+  { id: "creator", label: "Creator", credits: 30, price: 25000, note: "±30 video 5 detik", popular: true },
+  { id: "pro", label: "Pro", credits: 100, price: 75000, note: "±100 video 5 detik" },
 ];
 
 export function creditCostFor(durationSeconds: number): number {
