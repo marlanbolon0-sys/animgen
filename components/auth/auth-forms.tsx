@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Loader2 } from "lucide-react";
+import { NEW_USER_CREDITS } from "@/lib/pricing";
 
 interface AuthFormProps {
   demoMode: boolean;
@@ -169,7 +170,7 @@ export function DaftarForm({ demoMode }: AuthFormProps) {
       </div>
       <Button type="submit" disabled={loading} className="w-full bg-gradient-to-r from-violet-600 to-blue-600 text-white hover:opacity-90">
         {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-        {loading ? "Membuat akun…" : "Daftar & Dapat 3 Kredit Gratis"}
+        {loading ? "Membuat akun…" : `Daftar & Dapat ${NEW_USER_CREDITS} Kredit Gratis`}
       </Button>
     </form>
   );
